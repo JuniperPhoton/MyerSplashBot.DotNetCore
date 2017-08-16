@@ -1,7 +1,9 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyerSplash.Bot", "MyerSplash.Bot\MyerSplash.Bot.csproj", "{331B13E2-60FD-452F-A10B-7E09E6B7A7C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyerSplash.Core", "MyerSplash.Core\MyerSplash.Core.csproj", "{95AF02EA-6CC1-4ABF-9A9D-28C2F7276427}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyerSplash.Shared", "MyerSplash.Shared\MyerSplash.Shared.csproj", "{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{331B13E2-60FD-452F-A10B-7E09E6B7A7C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{331B13E2-60FD-452F-A10B-7E09E6B7A7C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{331B13E2-60FD-452F-A10B-7E09E6B7A7C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{331B13E2-60FD-452F-A10B-7E09E6B7A7C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95AF02EA-6CC1-4ABF-9A9D-28C2F7276427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95AF02EA-6CC1-4ABF-9A9D-28C2F7276427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95AF02EA-6CC1-4ABF-9A9D-28C2F7276427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95AF02EA-6CC1-4ABF-9A9D-28C2F7276427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
