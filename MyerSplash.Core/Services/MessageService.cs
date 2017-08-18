@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
+using MyerSplash.Core.Handlers;
 using MyerSplash.Shared.Logger;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace MyerSplash.Core.Services
 {
@@ -14,10 +18,38 @@ namespace MyerSplash.Core.Services
             _botService = service;
         }
 
-        public void Echo(Update update)
+        public string Echo(Update update)
         {
+            if (update == null)
+            {
+                return "Message received";
+            }
             var message = update.Message;
-            Logger.Info(TAG, $"text received: {message}");
+            if (message == null || string.IsNullOrEmpty(message.Text))
+            {
+                Logger.Warning(TAG, "message is null");
+                return null;
+            }
+            Logger.Info(TAG, $"message received: {message.Chat.Id}");
+
+            var type = message.Type;
+
+            ICommand command = new CommandParser(_botService).ParseMessage(message.Text);
+            if (command != null)
+            {
+                command?.HandleCommand(message);
+            }
+            else
+            {
+                _botService.Client.SendTextMessageAsync(message.Chat.Id, "Message received.");
+            }
+
+            return null;
+        }
+
+        public string Echo(string text)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

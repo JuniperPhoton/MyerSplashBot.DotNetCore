@@ -11,7 +11,7 @@ namespace MyerSplash.Core.Services
         public BotService(BotConfiguration config)
         {
             _config = config;
-            Client = new TelegramBotClient(_config.Token);
+            Client = new TelegramBotClient(config.Token);
         }
     }
 }

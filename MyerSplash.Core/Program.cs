@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Net;
 using Microsoft.AspNetCore.Hosting;
 
 namespace MyerSplash.Core
@@ -9,9 +10,9 @@ namespace MyerSplash.Core
         {
             var host = new WebHostBuilder()
                              .UseKestrel()
+                             .UseUrls("http://127.0.0.1:8443")
                              .UseContentRoot(Directory.GetCurrentDirectory())
                              .UseIISIntegration()
-                             .UseUrls("http://localhost:8443")
                              .UseStartup<Startup>()
                              .Build();
             host.Run();

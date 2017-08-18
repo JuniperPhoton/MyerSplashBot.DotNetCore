@@ -2,8 +2,24 @@ using System;
 
 namespace MyerSplash.Shared.Logger
 {
+    enum LogLevel
+    {
+        // For debug purpose
+        Debug,
+
+        // Info something
+        Info,
+
+        // There is a warning
+        Warning,
+
+        //Error occurs
+        Error
+    }
+
     /// <summary>
     /// A wrapper of Console class to write pretty log.
+    /// It has four levels <see cref=LogLevel>.
     /// </summary>
     public static class Logger
     {
@@ -32,13 +48,5 @@ namespace MyerSplash.Shared.Logger
             var level = LogLevel.Error;
             Console.WriteLine($"{Enum.GetName(typeof(LogLevel), level)}{PREFIX} {msg}");
         }
-    }
-
-    enum LogLevel
-    {
-        Debug,
-        Info,
-        Warning,
-        Error
     }
 }
