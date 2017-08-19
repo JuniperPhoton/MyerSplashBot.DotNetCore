@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using MyerSplash.Core.Handlers;
 using MyerSplash.Shared.Logger;
 using Telegram.Bot.Types;
@@ -12,17 +13,21 @@ namespace MyerSplash.Core.Services
         private string TAG => nameof(MessageService);
 
         private IBotService _botService;
+        private IServiceCollection _serviceProvider;
+        private ICommandService _commandService;
 
-        public MessageService(IBotService service)
+        public MessageService(IBotService service, IServiceCollection servicesProvider, ICommandService commandService)
         {
             _botService = service;
+            _serviceProvider = servicesProvider;
+            _commandService = commandService;
         }
 
         public string Echo(Update update)
         {
             if (update == null)
             {
-                return "Message received";
+                return "I can't understand your word yet :(";
             }
             var message = update.Message;
             if (message == null || string.IsNullOrEmpty(message.Text))
@@ -34,7 +39,7 @@ namespace MyerSplash.Core.Services
 
             var type = message.Type;
 
-            ICommand command = new CommandParser(_botService).ParseMessage(message.Text);
+            ICommand command = _commandService.GetCommandFromMessageText(message.Text);
             if (command != null)
             {
                 command?.HandleCommand(message);
