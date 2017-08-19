@@ -24,7 +24,7 @@ namespace MyerSplash.Core.Handlers
             var thumbUrl = $"http://juniperphoton.net/myersplash/wallpapers/thumbs/{timeString}.jpg";
             var largeUrl = $"http://juniperphoton.net/myersplash/wallpapers/{timeString}.jpg";
             _service.Client.SendTextMessageAsync(message.Chat.Id,
-                    $"Here is today's wallpaper, enjoy it :P [image]({thumbUrl}), download [it]({largeUrl}).",
+                    $"Here is today's wallpaper, enjoy [it]({thumbUrl}) :P. [Download this]({largeUrl}).",
                     ParseMode.Markdown, false);
 
             Logger.Info(NAME, $"sent callback {thumbUrl}");

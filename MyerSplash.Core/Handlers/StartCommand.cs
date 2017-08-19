@@ -16,7 +16,7 @@ namespace MyerSplash.Core.Handlers
 
         public void HandleCommand(Message message)
         {
-            _service.Client.SendTextMessageAsync(message.Chat.Id, "Type / to view all support commands.");
+            _service.Client.SendTextMessageAsync(message.Chat.Id, "Typing '/' to view all supported commands.");
         }
     }
 }

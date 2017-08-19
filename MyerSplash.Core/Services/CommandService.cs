@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using MyerSplash.Core.Handlers;
 using MyerSplash.Core.Services;
 
-namespace MyerSplash.Core.Handlers
+namespace MyerSplash.Core.Services
 {
-    public class CommandParser
+    public class CommandService : ICommandService
     {
         private static Dictionary<string, Type> CommandDictionary = new Dictionary<string, Type>()
         {
@@ -14,13 +16,15 @@ namespace MyerSplash.Core.Handlers
         };
 
         private IBotService _service;
+        private IServiceProvider _provider;
 
-        public CommandParser(IBotService service)
+        public CommandService(IBotService service, IServiceProvider provider)
         {
             _service = service;
+            _provider = provider;
         }
 
-        public ICommand ParseMessage(string text)
+        public ICommand GetCommandFromMessageText(string text)
         {
             ICommand command = null;
             if (!text.StartsWith('/'))
@@ -33,7 +37,7 @@ namespace MyerSplash.Core.Handlers
             if (CommandDictionary.ContainsKey(commandName))
             {
                 var commandType = CommandDictionary[commandName];
-                command = Activator.CreateInstance(commandType, _service) as ICommand;
+                command = _provider.GetService(commandType) as ICommand;
             }
             return command;
         }
