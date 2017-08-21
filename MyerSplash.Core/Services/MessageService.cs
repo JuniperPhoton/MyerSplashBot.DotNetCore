@@ -13,40 +13,35 @@ namespace MyerSplash.Core.Services
         private string TAG => nameof(MessageService);
 
         private IBotService _botService;
-        private IServiceCollection _serviceProvider;
         private ICommandService _commandService;
 
-        public MessageService(IBotService service, IServiceCollection servicesProvider, ICommandService commandService)
+        public MessageService(IBotService service, ICommandService commandService)
         {
             _botService = service;
-            _serviceProvider = servicesProvider;
             _commandService = commandService;
         }
 
-        public string Echo(Update update)
+        public string Echo(Message message)
         {
-            if (update == null)
-            {
-                return "I can't understand your word yet :(";
-            }
-            var message = update.Message;
             if (message == null || string.IsNullOrEmpty(message.Text))
             {
-                Logger.Warning(TAG, "message is null");
+                Logger.Warning(TAG, "message or its text is null");
                 return null;
             }
-            Logger.Info(TAG, $"message received: {message.Chat.Id}");
+
+            Logger.Info(TAG, $"message received: {message.Chat.Id} {message.Text}");
 
             var type = message.Type;
 
             ICommand command = _commandService.GetCommandFromMessageText(message.Text);
             if (command != null)
             {
-                command?.HandleCommand(message);
+                command.HandleCommand(message);
             }
             else
             {
-                _botService.Client.SendTextMessageAsync(message.Chat.Id, "Message received.");
+                // no command matches, send the default text
+                _botService.Client.SendTextMessageAsync(message.Chat.Id, "Hi there~");
             }
 
             return null;

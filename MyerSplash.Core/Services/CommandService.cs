@@ -4,15 +4,19 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using MyerSplash.Core.Handlers;
 using MyerSplash.Core.Services;
+using MyerSplash.Shared.Logger;
 
 namespace MyerSplash.Core.Services
 {
     public class CommandService : ICommandService
     {
-        private static Dictionary<string, Type> CommandDictionary = new Dictionary<string, Type>()
+        private const string TAG = "CommandService";
+
+        public static Dictionary<string, Type> CommandDictionary = new Dictionary<string, Type>()
         {
             {StartCommand.NAME,typeof(StartCommand)},
-            {TodayCommand.NAME,typeof(TodayCommand)}
+            {TodayCommand.NAME,typeof(TodayCommand)},
+            {GetCommand.NAME,typeof(GetCommand)}
         };
 
         private IBotService _service;
@@ -32,12 +36,18 @@ namespace MyerSplash.Core.Services
                 command = null;
             }
             var blankIndex = text.IndexOf(' ');
-            if (blankIndex < 0) blankIndex = text.Length - 1;
-            var commandName = text.Substring(1, blankIndex);
+            if (blankIndex < 0) blankIndex = text.Length;
+            var commandName = text.Substring(1, blankIndex - 1);
+            Logger.Debug(TAG, $"command name is {commandName}.");
             if (CommandDictionary.ContainsKey(commandName))
             {
+                Logger.Debug(TAG, $"has command: {commandName}.");
                 var commandType = CommandDictionary[commandName];
                 command = _provider.GetService(commandType) as ICommand;
+            }
+            else
+            {
+                Logger.Debug(TAG, $"command not found for: {commandName}.");
             }
             return command;
         }

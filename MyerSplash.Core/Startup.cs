@@ -51,11 +51,13 @@ namespace MyerSplash.Core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSingleton<IAssetService, AssetService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddSingleton<IBotService, BotService>();
             services.AddSingleton<ICommandService, CommandService>();
             services.AddSingleton<TodayCommand>();
             services.AddSingleton<StartCommand>();
+            services.AddSingleton<GetCommand>();
             services.AddSingleton(Configuration.GetSection("BotConfiguration").Get<BotConfiguration>());
         }
 
@@ -71,9 +73,6 @@ namespace MyerSplash.Core
             loggerFactory.AddDebug();
 
             app.UseMvc();
-
-            var s = app.ApplicationServices.GetService<ICommandService>();
-            s.GetCommandFromMessageText("today");
         }
     }
 }

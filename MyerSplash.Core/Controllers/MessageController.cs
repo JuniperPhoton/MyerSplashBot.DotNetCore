@@ -29,7 +29,11 @@ namespace MyerSplash.Core.Controllers
         [HttpPost]
         public string ReceivedPostRequest([FromBody]Update update)
         {
-            return _messageService.Echo(update);
+            if (update == null || update.Message == null)
+            {
+                return "I can't understand your word yet :(";
+            }
+            return _messageService.Echo(update.Message);
         }
 
         [HttpGet]
