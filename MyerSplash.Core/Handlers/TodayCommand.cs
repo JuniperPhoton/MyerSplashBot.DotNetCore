@@ -10,21 +10,24 @@ namespace MyerSplash.Core.Handlers
     {
         public const string NAME = "today";
 
-        private IBotService _service;
+        private readonly IBotService _botService;
+        private readonly IAssetService _assetService;
 
-        public TodayCommand(IBotService service)
+        public TodayCommand(IBotService botService, IAssetService assetService)
         {
-            _service = service;
+            _botService = botService;
+            _assetService = assetService;
         }
 
         public void HandleCommand(Message message)
         {
             var time = DateTime.Now;
             var timeString = time.ToString("yyyyMMdd");
-            var thumbUrl = $"http://juniperphoton.net/myersplash/wallpapers/thumbs/{timeString}.jpg";
-            var largeUrl = $"http://juniperphoton.net/myersplash/wallpapers/{timeString}.jpg";
-            _service.Client.SendTextMessageAsync(message.Chat.Id,
-                    $"Here is today's wallpaper, enjoy [it]({thumbUrl}) :P. [Download this]({largeUrl}).",
+            var thumbUrl = _assetService.GetThumburl(timeString);
+            var rawUrl = _assetService.GetRawurl(timeString);
+
+            _botService.Client.SendTextMessageAsync(message.Chat.Id,
+                    _assetService.GetResponseText(thumbUrl, rawUrl),
                     ParseMode.Markdown, false);
 
             Logger.Info(NAME, $"sent callback {thumbUrl}");

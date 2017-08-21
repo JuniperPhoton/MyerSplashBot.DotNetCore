@@ -5,11 +5,11 @@ namespace MyerSplash.Core.Services
     public interface IMessageService
     {
         /// <summary>
-        /// Echo a response when receiving update.
+        /// Echo a response when receiving message.
         /// </summary>
-        /// <param name="update">Update object</param>
+        /// <param name="message">message object</param>
         /// <returns></returns>
-        string Echo(Update update);
+        string Echo(Message message);
 
         /// <summary>
         /// Echo a text response

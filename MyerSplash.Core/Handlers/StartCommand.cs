@@ -7,7 +7,7 @@ namespace MyerSplash.Core.Handlers
     {
         public const string NAME = "start";
 
-        private IBotService _service;
+        private readonly IBotService _service;
 
         public StartCommand(IBotService service)
         {

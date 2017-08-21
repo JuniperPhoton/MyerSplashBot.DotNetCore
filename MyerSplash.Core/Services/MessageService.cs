@@ -21,13 +21,8 @@ namespace MyerSplash.Core.Services
             _commandService = commandService;
         }
 
-        public string Echo(Update update)
+        public string Echo(Message message)
         {
-            if (update == null)
-            {
-                return "I can't understand your word yet :(";
-            }
-            var message = update.Message;
             if (message == null || string.IsNullOrEmpty(message.Text))
             {
                 Logger.Warning(TAG, "message or its text is null");
