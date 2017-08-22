@@ -13,6 +13,16 @@ namespace MyerSplash.Core.Handlers
     {
         public const string NAME = "get";
 
+        private static readonly IEnumerable<Regex> FullDateRegexs = new List<Regex>(){
+                new Regex(@"\d\d\d\d\d\d\d\d"),
+                new Regex(@"\d\d\d\d.\d\d.\d\d")
+        };
+
+        private static readonly IEnumerable<Regex> DateRegexs = new List<Regex>(){
+                new Regex(@"\d\d\d\d"),
+                new Regex(@"\d\d.\d\d")
+        };
+
         private readonly IBotService _botService;
         private readonly IAssetService _assetService;
 
@@ -58,46 +68,34 @@ namespace MyerSplash.Core.Handlers
         public string ExtractFileName(string text)
         {
             var name = "";
-            var fullDateRegexs = GetFullDateRegexs();
-            foreach (var regex in fullDateRegexs)
+            name = ExtractFileName(text, FullDateRegexs, (s) =>
             {
-                var match = regex.Match(text);
-                if (match.Success)
-                {
-                    name = match.Value.Replace(".", "");
-                    break;
-                }
-            }
+                return s;
+            });
             if (string.IsNullOrEmpty(name))
             {
-                var dateRegex = GetDateRegexs();
-                foreach (var regex in dateRegex)
+                name = ExtractFileName(text, DateRegexs, (s) =>
                 {
-                    var match = regex.Match(text);
-                    if (match.Success)
-                    {
-                        name = $"2017{match.Value.Replace(".", "")}";
-                        break;
-                    }
-                }
+                    var year = DateTime.Now.ToString("yyyy");
+                    return $"{year}{s}";
+                });
             }
             return name;
         }
 
-        private IEnumerable<Regex> GetFullDateRegexs()
+        public string ExtractFileName(string text, IEnumerable<Regex> regexs, Func<string, string> getName)
         {
-            var list = new List<Regex>();
-            list.Add(new Regex(@"\d\d\d\d\d\d\d\d"));
-            list.Add(new Regex(@"\d\d\d\d.\d\d.\d\d"));
-            return list;
-        }
-
-        private IEnumerable<Regex> GetDateRegexs()
-        {
-            var list = new List<Regex>();
-            list.Add(new Regex(@"\d\d\d\d"));
-            list.Add(new Regex(@"\d\d.\d\d"));
-            return list;
+            var name = "";
+            foreach (var regex in regexs)
+            {
+                var match = regex.Match(text);
+                if (match.Success)
+                {
+                    name = getName.Invoke(match.Value.Replace(".", ""));
+                    break;
+                }
+            }
+            return name;
         }
     }
 }

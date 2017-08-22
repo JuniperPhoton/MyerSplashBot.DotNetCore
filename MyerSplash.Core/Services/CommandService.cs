@@ -38,10 +38,8 @@ namespace MyerSplash.Core.Services
             var blankIndex = text.IndexOf(' ');
             if (blankIndex < 0) blankIndex = text.Length;
             var commandName = text.Substring(1, blankIndex - 1);
-            Logger.Debug(TAG, $"command name is {commandName}.");
             if (CommandDictionary.ContainsKey(commandName))
             {
-                Logger.Debug(TAG, $"has command: {commandName}.");
                 var commandType = CommandDictionary[commandName];
                 command = _provider.GetService(commandType) as ICommand;
             }
