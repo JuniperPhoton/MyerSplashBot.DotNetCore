@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MyerSplash.Core.Services;
 using Telegram.Bot.Types;
@@ -20,10 +23,14 @@ namespace MyerSplash.Core.Controllers
     public class MessageController : Controller
     {
         private IMessageService _messageService;
+        private IHostingEnvironment _env;
 
-        public MessageController(IMessageService service)
+        private string DefaultResponse => "I can't understand your word yet :(";
+
+        public MessageController(IMessageService service, IHostingEnvironment env)
         {
             _messageService = service;
+            _env = env;
         }
 
         [HttpPost]
@@ -31,7 +38,7 @@ namespace MyerSplash.Core.Controllers
         {
             if (update == null || update.Message == null)
             {
-                return "I can't understand your word yet :(";
+                return DefaultResponse;
             }
             return _messageService.Echo(update.Message);
         }

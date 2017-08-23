@@ -48,5 +48,17 @@ namespace MyerSplash.Shared.Logger
             var level = LogLevel.Error;
             Console.WriteLine($"{Enum.GetName(typeof(LogLevel), level)}{PREFIX} {msg}");
         }
+
+        public static void Warning(Exception e)
+        {
+            var level = LogLevel.Warning;
+            Console.WriteLine($"{Enum.GetName(typeof(LogLevel), level)}{PREFIX} {e.Message}");
+        }
+
+        public static void Error(Exception e)
+        {
+            var level = LogLevel.Error;
+            Console.WriteLine($"{Enum.GetName(typeof(LogLevel), level)}{PREFIX} {e.Message}");
+        }
     }
 }

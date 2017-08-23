@@ -22,10 +22,19 @@ namespace MyerSplash.Core.Services
         private IBotService _service;
         private IServiceProvider _provider;
 
-        public CommandService(IBotService service, IServiceProvider provider)
+        public CommandService(IBotService service, IServiceProvider provider, BotConfiguration configuration)
         {
             _service = service;
             _provider = provider;
+
+            if (configuration.UploadThumbCommand != null)
+            {
+                CommandDictionary.Add(configuration.UploadThumbCommand, typeof(UploadCommand));
+            }
+            if (configuration.UploadLargeCommand != null)
+            {
+                CommandDictionary.Add(configuration.UploadLargeCommand, typeof(UploadCommand));
+            }
         }
 
         public ICommand GetCommandFromMessageText(string text)

@@ -55,9 +55,11 @@ namespace MyerSplash.Core
             services.AddScoped<IMessageService, MessageService>();
             services.AddSingleton<IBotService, BotService>();
             services.AddSingleton<ICommandService, CommandService>();
+            services.AddScoped<UploadCommand>();
             services.AddSingleton<TodayCommand>();
             services.AddSingleton<StartCommand>();
             services.AddSingleton<GetCommand>();
+            services.AddScoped<IFileService, FileService>();
             services.AddSingleton(Configuration.GetSection("BotConfiguration").Get<BotConfiguration>());
         }
 
@@ -73,6 +75,13 @@ namespace MyerSplash.Core
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            if (env.IsDevelopment())
+            {
+                var s = app.ApplicationServices.GetService<ICommandService>();
+                var st = s.GetCommandFromMessageText("/uploadttt");
+                var isn = st == null;
+            }
         }
     }
 }

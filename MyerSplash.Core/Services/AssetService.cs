@@ -1,15 +1,17 @@
+using MyerSplash.Core.Data;
+
 namespace MyerSplash.Core.Services
 {
     public class AssetService : IAssetService
     {
         public string GetThumburl(string name)
         {
-            return $"https://juniperphoton.net/myersplash/wallpapers/thumbs/{name}.jpg";
+            return $"{Request.BASE_SELF_URL}/myersplash/wallpapers/thumbs/{name}.jpg";
         }
 
         public string GetRawurl(string name)
         {
-            return $"https://juniperphoton.net/myersplash/wallpapers/{name}.jpg";
+            return $"{Request.BASE_SELF_URL}/myersplash/wallpapers/{name}.jpg";
         }
 
         public string GetThumbPath(string name)

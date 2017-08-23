@@ -11,6 +11,8 @@ namespace MyerSplash.Core.Handlers
 {
     public class GetCommand : ICommand
     {
+        private string TAG => nameof(GetCommand);
+
         public const string NAME = "get";
 
         private static readonly IEnumerable<Regex> FullDateRegexs = new List<Regex>(){
