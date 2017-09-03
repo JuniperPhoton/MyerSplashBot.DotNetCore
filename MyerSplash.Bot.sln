@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyerSplash.Core", "MyerSpla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyerSplash.Shared", "MyerSplash.Shared\MyerSplash.Shared.csproj", "{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyerSplash.Color", "MyerSplash.Color\MyerSplash.Color.csproj", "{B6773A4E-A3F4-4394-AF5B-C15169F1EE38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC812BCF-99AC-4E9D-ABA3-8770E8DD05C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6773A4E-A3F4-4394-AF5B-C15169F1EE38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6773A4E-A3F4-4394-AF5B-C15169F1EE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6773A4E-A3F4-4394-AF5B-C15169F1EE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6773A4E-A3F4-4394-AF5B-C15169F1EE38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
