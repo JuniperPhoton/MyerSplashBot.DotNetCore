@@ -11,6 +11,4 @@ I think you have figured out how to use Telegram(which you should if you do need
 
 - /today : show the recommended today's wallpaper, which is the same when you using MyerSplash for [UWP](https://github.com/JuniperPhoton/MyerSplashUWP) and [Android](https://github.com/JuniperPhoton/MyerSplashAndroid).
 
-## Build from source
-
-Writing in progress...
+- /get: get the wallpaper from specified date. e.g /get 20170506. Note: you can omit the year component, the bot will append this year for you.
